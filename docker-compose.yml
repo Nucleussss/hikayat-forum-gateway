@@ -1,0 +1,13 @@
+version: '3.8'
+services:
+  forum-gateway:
+    build: ./forum-gateway
+    ports:
+      - "8080:8080"
+    environment:
+      - JWT_SECRET=${JWT_SECRET}  # must match user-service
+      - AUTH_SERVICE_ADDR={AUTH_SERVICE_ADDR}
+      - POST_SERVICE_ADDR={POST_SERVICE_ADDR}
+    depends_on:
+      - forum-user-service
+      - forum-post-service
