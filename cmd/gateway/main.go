@@ -1,6 +1,8 @@
 package gateway
 
 import (
+	"os"
+
 	"github.com/Nucleussss/hikayat-forum-gateway/internal/handler"
 	"github.com/Nucleussss/hikayat-forum-gateway/internal/service"
 	"github.com/Nucleussss/hikayat-forum-gateway/internal/transport"
@@ -11,12 +13,12 @@ import (
 func main() {
 
 	// Initialize gRPC clients
-	userSvc, err := service.NewAuthServiceClient("localhost:50051")
+	userSvc, err := service.NewAuthServiceClient(os.Getenv("AUTH_GRPC_PORT"))
 	if err != nil {
 		log.Fatalf("Failed to create user service client: %v", err)
 	}
 
-	postSvc, err := service.NewPostServiceClient("localhost:50052")
+	postSvc, err := service.NewPostServiceClient(os.Getenv("POST_GRPC_PORT"))
 	if err != nil {
 		log.Fatalf("Failed to create post service client: %v", err)
 	}
